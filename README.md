@@ -12,7 +12,7 @@ It puts the EntityFacts sheets one by one as line-delimited JSON record to *stdo
 entityfactssheetsharvester
 
 optional arguments:
-  -h, --help                           show this help message and exit```
+  -h, --help                           show this help message and exit
 ```
 
 * example:
