@@ -1,6 +1,8 @@
 # entityfactssheetsharvester - EntityFacts sheets harvester
 
-entityfactssheetsharvester is a commandline command (Python3 program) that retrieves EntityFacts sheets from a given CSV with GND identifiers and returns them as line-delimited JSON records
+entityfactssheetsharvester is a commandline command (Python3 program) that retrieves [EntityFacts](https://www.dnb.de/EN/Professionell/Metadatendienste/Datenbezug/Entity-Facts/entity-facts_node.html) sheets* from a given CSV with GND identifiers and returns them as line-delimited JSON records
+
+*) EntityFacts are "fact sheets" on entities of the Integrated Authority File ([GND](https://www.dnb.de/EN/Professionell/Standardisierung/GND/gnd_node.html)), which is provided by German National Library ([DNB](https://www.dnb.de/EN/Home/home_node.html))
 
 ## Usage
 
