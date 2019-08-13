@@ -41,6 +41,8 @@ def entityfacts_request(request_uri, gnd_identifier):
     if response.status_code != 200:
         eprint("couldn't fetch EntityFacts sheet for GND identifier '{0}' (thread = '{1}')".format(gnd_identifier,
                                                                                                    current_thread().name))
+        return None
+
     response_body = response.content.decode(UTF8_CHARSET_ID)
     eprint("retrieved EntityFacts sheet for GND identifier '{0}' (thread = '{1}')".format(gnd_identifier,
                                                                                           current_thread().name))
@@ -48,13 +50,19 @@ def entityfacts_request(request_uri, gnd_identifier):
 
 
 def retrieve_entityfacts_sheet_obs(gnd_identifier):
-    return of(gnd_identifier).pipe(op.map(lambda gndid: retrieve_entityfacts_sheet(gnd_identifier)))
+    return of(gnd_identifier).pipe(op.map(lambda gndid: retrieve_entityfacts_sheet(gnd_identifier)),
+                                   op.filter(lambda value: value is not None))
 
 
 def retrieve_entityfacts_sheet(gnd_identifier):
     entityfacts_sheets_uri = ENTITYFACTS_BASE_URI + gnd_identifier
-    entityfacts_sheet = (entityfacts_request(entityfacts_sheets_uri, gnd_identifier), gnd_identifier)
-    return entityfacts_sheet
+    response_tuple = entityfacts_request(entityfacts_sheets_uri, gnd_identifier)
+    if response_tuple is None:
+        return None
+
+    entityfacts_sheet_tuple = (response_tuple, gnd_identifier)
+
+    return entityfacts_sheet_tuple
 
 
 def format_entityfacts_sheet_obs(entityfacts_sheet_tuple_obs):
