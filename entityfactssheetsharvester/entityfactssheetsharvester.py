@@ -39,8 +39,8 @@ def entityfacts_request(request_uri, gnd_identifier):
                                                                                                 current_thread().name))
     response = requests.get(request_uri, timeout=60)
     if response.status_code != 200:
-        eprint("couldn't fetch EntityFacts sheet for GND identifier '{0}' (thread = '{1}')".format(gnd_identifier,
-                                                                                                   current_thread().name))
+        eprint("couldn't fetch EntityFacts sheet for GND identifier '{0}', got a '{1}' (thread = '{2}')".format(
+            gnd_identifier, response.status_code, current_thread().name))
         return None
 
     response_body = response.content.decode(UTF8_CHARSET_ID)
