@@ -3,6 +3,7 @@
 import argparse
 import json
 import os
+import socket
 import sys
 
 import requests
@@ -12,6 +13,11 @@ from rx import create, of
 from rx import operators as op
 from rx.scheduler import ThreadPoolScheduler
 
+USER_AGENT_HTTP_HEADER_KEY = 'user-agent'
+USER_AGENT_PATTERN = "entityfactssheetsharvester-bot-from-{0}/0.0.1 (https://github.com/slub/entityfactssheetsharvester; zazi@smiy.org) entityfactssheetsharvester/0.0.1"
+HOSTNAME = socket.getfqdn()
+USER_AGENT = USER_AGENT_PATTERN.format(HOSTNAME)
+HTTP_HEADERS = {USER_AGENT_HTTP_HEADER_KEY: USER_AGENT}
 ENTITYFACTS_BASE_URI = "http://hub.culturegraph.org/entityfacts/"
 UTF8_CHARSET_ID = 'utf-8'
 LINEBREAK = "\n"
@@ -37,7 +43,7 @@ def get_gnd_identifier(line):
 def entityfacts_request(request_uri, gnd_identifier):
     eprint("try to retrieve EntityFacts sheet for GND identifier '{0}' (thread = '{1}')".format(gnd_identifier,
                                                                                                 current_thread().name))
-    response = requests.get(request_uri, timeout=60)
+    response = requests.get(request_uri, headers=HTTP_HEADERS, timeout=60)
     if response.status_code != 200:
         eprint("couldn't fetch EntityFacts sheet for GND identifier '{0}', got a '{1}' (thread = '{2}')".format(
             gnd_identifier, response.status_code, current_thread().name))
