@@ -33,3 +33,8 @@ optional arguments:
 sudo -H pip3 install --upgrade [ABSOLUTE PATH TO YOUR LOCAL GIT REPOSITORY OF ENTITYFACTSSHEETSHARVESTER]
 ```
 (which provides you ```entityfactssheetsharvester``` as a system-wide commandline command)
+
+## See Also
+
+* [entityfactspicturesharvester](https://github.com/slub/entityfactspicturesharvester) - a commandline command (Python3 program) that reads depiction information (images URLs) from given EntityFacts sheets (as line-delimited JSON records) and retrieves and stores the pictures and thumbnails contained in this information
+* [entityfactspicturesmetadataharvester](https://github.com/slub/entityfactspicturesmetadataharvester) - a commandline command (Python3 program) that reads depiction information (images URLs) from given EntityFacts sheets (as line-delimited JSON records) and retrieves the (Wikimedia Commons file) metadata of these pictures (as line-delimited JSON records)
